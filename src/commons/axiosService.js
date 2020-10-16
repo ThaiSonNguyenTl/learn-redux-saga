@@ -2,9 +2,9 @@ import axios from 'axios';
 
 class AxiosService {
     constructor() {
-        const instance = axios.create()
-        instance.interceptors.response.use(this.handleSuccess,this.handleError)
-        this.instance = instance
+        const INSTANCE = axios.create()
+        INSTANCE.interceptors.response.use(this.handleSuccess,this.handleError)
+        this.instance = INSTANCE // tao bien instance cho class
     }
 
     handleSuccess(response) {
@@ -14,8 +14,17 @@ class AxiosService {
         return Promise.reject(error)
     }
 
-    get(url) {
+    getRequest(url) {
         return this.instance.get(url)
     }
+    postRequest(url,body){
+        return this.instance.post(url,body)
+    }
+    putRequest(url,body){
+        return this.instance.put(url,body)
+    }
+    deleteRequest(url){
+        return this.instance.delete(url)
+    }
 }
-export default AxiosService()
+export default new AxiosService()
