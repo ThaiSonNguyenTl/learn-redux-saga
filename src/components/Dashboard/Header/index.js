@@ -10,7 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import {withRouter} from 'react-router'
+import {compose} from 'redux'
 
 const menuId = 'primary-search-account-menu';
 
@@ -31,6 +32,14 @@ class Header extends Component{
         })
     }
 
+    handleLogOut = () => {
+      // console.log(this.props) lay dc nho vao withRouter . 3 dtg quan trong history; match; location
+      const {history} = this.props
+      if(history){
+        history.push('/signin')
+      }
+    }
+
     renderMenu = () => {
         const {anchorEl} = this.state
         const isMenuOpen = Boolean(anchorEl)
@@ -44,8 +53,8 @@ class Header extends Component{
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>Log Out</MenuItem>
+                <MenuItem>Profile</MenuItem>
+                <MenuItem onClick={this.handleLogOut}>Log Out</MenuItem>
             </Menu>
               
         )
@@ -101,7 +110,11 @@ Header.propTypes = {
     classes:PropTypes.object,
     name: PropTypes.string,
     showSideBar: PropTypes.bool,
-    onToggleSideBar: PropTypes.func
+    onToggleSideBar: PropTypes.func,
+    history: PropTypes.object
 }
 
-export default withStyles(styles)(Header)
+export default compose(
+  withRouter,
+  withStyles(styles)
+)(Header)

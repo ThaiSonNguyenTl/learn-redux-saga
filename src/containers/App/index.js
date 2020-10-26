@@ -9,8 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import GlobalLoading from "../../components/GlobalLoading";
 import Modal from '../../components/Modal'
 import {BrowserRouter,Switch} from 'react-router-dom'
-import  {ADMIN_ROUTES}  from "../../constants";
+import  {ADMIN_ROUTES, ROUTES}  from "../../constants";
 import AdminLayoutRoute from '../../commons/Layout/AdminLayoutRoute'
+import DefaultLayoutRoute from "../../commons/Layout/DefaultLayoutRoute";
 
 const store = configureStore();
 class App extends Component {
@@ -30,7 +31,22 @@ class App extends Component {
     })
     return xhtml
   }
-
+  
+  renderDefaultRoutes(){
+    let xhtml = null
+    xhtml = ROUTES.map(route => {
+      return(
+        <DefaultLayoutRoute
+          key={route.path}
+          path={route.path}
+          component={route.component}
+          exact={route.exact}
+          name={route.name}
+        />
+      )
+    })
+    return xhtml
+  }
 
   render() {
     // console.log('props withStyle:' ,this.props);
@@ -44,6 +60,7 @@ class App extends Component {
               <Modal />
               <Switch>
                 {this.renderAdminRoutes()}
+                {this.renderDefaultRoutes()}
               </Switch>
         </ThemeProvider>
         </BrowserRouter>

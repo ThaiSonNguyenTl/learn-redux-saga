@@ -14,9 +14,6 @@ import * as actionTask from "../../actions/task";
 import * as actionModal from "../../actions/modal"
 import SearchBox from '../../components/SearchBox';
 
-
-
-  
 class TaskBoard extends Component{
     componentDidMount(){
         const {taskActionsCreator} = this.props

@@ -16,5 +16,6 @@ const theme = createMuiTheme({
         textColor: "#FFFFFF"
     }
 })
+// console.log(theme)
 
 export default theme
